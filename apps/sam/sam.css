@@ -1,0 +1,85 @@
+.sam-header {text-align:center; padding:32px 12px 8px;}
+.sam-app-title {font-size:54px; margin:0; font-weight:700; letter-spacing:.5px;}
+.sam-sub {margin:4px 0 12px; font-size:22px; font-weight:600;}
+.sam-back {margin:0 0 8px;}
+.sam-back-link {color:#0a6ed1; text-decoration:none; font-size:14px;}
+.sam-back-link:hover {text-decoration:underline;}
+
+.sam-card {background:#fff; border:1px solid #e5e7eb; border-radius:14px; padding:22px 24px; box-shadow:0 4px 12px rgba(0,0,0,.06); margin-bottom:26px;}
+.input-section .input-field {width:100%; font-size:16px; padding:14px 16px; border:1px solid #d0d7de; border-radius:8px; outline:none; transition:border-color .15s ease, box-shadow .15s ease;}
+.input-section .input-field:focus {border-color:#0a6ed1; box-shadow:0 0 0 3px rgba(10,110,209,.18);}
+.start-button {width:100%; margin-top:12px; background:#4447ff; color:#fff; border:none; padding:18px 20px; font-size:19px; font-weight:600; border-radius:10px; cursor:pointer; transition:background .15s ease, transform .2s ease;}
+.start-button:hover {background:#2d31e6;}
+.start-button:active {transform:translateY(1px);}
+.sam-actions {display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
+.sam-btn {background:#0a6ed1; border:none; color:#fff; padding:10px 16px; font-size:14px; font-weight:600; border-radius:8px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,.1); transition:background .15s ease;}
+.sam-btn:hover {background:#045aa9;}
+.sam-btn:disabled {opacity:.45; cursor:not-allowed;}
+.sam-btn-outline {background:#fff; color:#0a6ed1; border:1px solid #0a6ed1;}
+.sam-btn-outline:hover {background:#e3f2ff;}
+.sam-hint {margin-top:10px; font-size:13px; color:#555;}
+
+.results-container {display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px;}
+.result-box {min-height:220px; display:flex; flex-direction:column;}
+.result-subtitle {margin:0 0 12px; font-size:18px; font-weight:600; letter-spacing:.3px;}
+.result-list {list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px; max-height:340px; overflow:auto;}
+.result-list li {padding:6px 10px; background:#f5f7fa; border-radius:6px; font-size:14px; display:flex; align-items:center; justify-content:space-between; border:1px solid #e0e6eb; animation:fadeIn .35s ease;}
+.result-list li.sam-hit {background:#e3f6ff; border-color:#b3e6fa;}
+.result-list li span.code-desc {color:#555; font-size:12px; font-style:italic; margin-left:8px;}
+/* Note badge appended to description */
+.sam-badge-note {display:inline-block; margin-left:8px; padding:2px 6px; font-size:11px; font-style:normal; font-weight:600; color:#0f172a; background:#e2e8f0; border:1px solid #cbd5e1; border-radius:999px;}
+
+/* Distinct styling for FY agreements */
+.result-list li.sam-fy {background:#f6edff; border-color:#dcc8ff; border-left:4px solid #a855f7;}
+.result-list li.sam-hit.sam-fy {background:#efe5ff; border-color:#d6c1ff;}
+/* Unique styling for FYEG */
+.result-list li.sam-fy-eg {background:#fff7e6; border-color:#ffd699; border-left:4px solid #f59e0b;}
+.result-list li.sam-hit.sam-fy-eg {background:#ffefd1; border-color:#ffce85;}
+
+/* Special color themes per specific FE codes */
+/* _FEDZ (Algeria) - teal */
+.result-list li.sam-fe-dz {background:#e6fffb; border-color:#b2f5ea; border-left:4px solid #14b8a6;}
+.result-list li.sam-hit.sam-fe-dz {background:#d7fff7; border-color:#9ee7dc;}
+/* _FEIL (Israel) - blue */
+.result-list li.sam-fe-il {background:#e8f1ff; border-color:#c7dbff; border-left:4px solid #3b82f6;}
+.result-list li.sam-hit.sam-fe-il {background:#deebff; border-color:#b7d0ff;}
+/* _FELB (Lebanon) - rose */
+.result-list li.sam-fe-lb {background:#fff0f3; border-color:#ffc2d1; border-left:4px solid #e11d48;}
+.result-list li.sam-hit.sam-fe-lb {background:#ffe6ec; border-color:#ffb3c6;}
+/* _FEPS (West Bank & Gaza) - slate */
+.result-list li.sam-fe-ps {background:#f3f4f6; border-color:#e5e7eb; border-left:4px solid #6b7280;}
+.result-list li.sam-hit.sam-fe-ps {background:#edeff2; border-color:#d8dbe2;}
+/* _FETR (Turkey) - red */
+.result-list li.sam-fe-tr {background:#ffecec; border-color:#ffc9c9; border-left:4px solid #ef4444;}
+.result-list li.sam-hit.sam-fe-tr {background:#ffe3e3; border-color:#ffbdbd;}
+
+/* Unified style for requested FE group (DZ, IL, LB, PS, TR) */
+.result-list li.sam-fe-special {background:#e6fffb; border-color:#b2f5ea; border-left:4px solid #14b8a6;}
+.result-list li.sam-hit.sam-fe-special {background:#d7fff7; border-color:#9ee7dc;}
+
+@keyframes fadeIn {from {opacity:0; transform:translateY(4px);} to {opacity:1; transform:translateY(0);}}
+
+.sam-summary {margin-top:4px;}
+.sam-summary-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:18px;}
+.sam-summary-item {text-align:center; padding:12px 10px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:10px;}
+.sam-summary-number {font-size:28px; font-weight:700; line-height:1.1;}
+.sam-summary-number.sam-pos {color:#0a6ed1;}
+.sam-summary-number.sam-neg {color:#d92d20;}
+.sam-summary-label {font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:#555; margin-top:4px; font-weight:600;}
+.sam-summary-note {margin-top:14px; font-size:13px; color:#444;}
+
+.sam-footer {text-align:center; padding:28px 10px 40px; font-size:11px; color:#555;}
+.sam-foot-note {opacity:.8;}
+
+/* Scrollbars (Webkit) */
+.result-list::-webkit-scrollbar {width:10px;}
+.result-list::-webkit-scrollbar-track {background:#fff; border-radius:10px;}
+.result-list::-webkit-scrollbar-thumb {background:#c1ccd6; border-radius:10px;}
+.result-list::-webkit-scrollbar-thumb:hover {background:#a6b6c4;}
+
+@media (max-width:640px){
+  .sam-app-title {font-size:42px;}
+  .sam-sub {font-size:18px;}
+  .sam-summary-grid {grid-template-columns:repeat(2,1fr);}
+  .result-box {min-height:180px;}
+}

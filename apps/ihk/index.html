@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IHK Origin Certificate Generator</title>
+    <link rel="stylesheet" href="../../shared/css/test.css">
+    <link rel="stylesheet" href="./ihk.css">
+</head>
+<body>
+    <header class="ihk-header" role="banner">
+        <h1 class="title">IHK Origin Certificate</h1>
+        <nav aria-label="Breadcrumb" class="ihk-breadcrumb">
+            <a href="../../Preference Management.html" class="back-link">← Back to Home</a>
+        </nav>
+    </header>
+
+    <main id="main" class="ihk-main" tabindex="-1">
+        <div id="form-errors" class="form-errors" role="alert" aria-live="polite"></div>
+        <form id="ihk-form" novalidate>
+            <fieldset>
+                <legend>Supplier / Legal Unit</legend>
+                <label for="lu2">Legal Unit</label>
+                <input type="text" id="lu2" list="suggestions" required aria-required="true" autocomplete="off">
+                <datalist id="suggestions">
+                    <option value="HELLA GmbH & Co. KGaA, Rixbecker Str. 75, D-59552">
+                    <option value="Hella Innenleuchten Systeme GmbH, Maienbuhlstr. 7, D-79677">
+                    <option value="Hella Fahrzeugkomponenten GmbH, Dortmunder Str. 5, D-28199">
+                    <option value="HELLA Autotechnik NOVA s.r.o., Druzstevni 338/16, CZ-789 85">
+                    <option value="UAB HELLA Lithuania, Oro parko str. 6, 54460">
+                    <option value="HELLA Romania SRL, Str. Hella Nr. 3, 307200">
+                    <option value="HELLA Slovakia Lighting s.r.o., Kočovce 228, SK-916 31">
+                    <option value="Hella Saturnus Slovenija d.o.o., Letališka cesta 17, SI-1000">
+                </datalist>
+                <label for="person1">Issuing Person</label>
+                <input type="text" id="person1" list="suggestions1" required aria-required="true" autocomplete="off">
+                <datalist id="suggestions1">
+                    <option value="Milosevic Zlatan">
+                    <option value="Secan Larisa Mirela">
+                    <option value="Micsa Oana Alexandra">
+                    <option value="Barbu Mirela Lidia">
+                    <option value="Lisi Alexandru Razvan">
+                </datalist>
+                <label for="place1">Place</label>
+                <input type="text" id="place1" list="suggestions3" required aria-required="true" autocomplete="off">
+                <datalist id="suggestions3">
+                    <option value="LIPPSTADT">
+                    <option value="WEMBACH">
+                    <option value="BREMEN">
+                    <option value="MOHELNICE">
+                    <option value="KOCOVCE">
+                    <option value="LJUBLJANA">
+                    <option value="GHIRODA - JUDETUL TIMIS">
+                    <option value="KARMELAVA, KAUNAS DISTRICT">
+                </datalist>
+            </fieldset>
+
+            <fieldset>
+                <legend>Options & Extras</legend>
+                <label for="langSelect">Language</label>
+                <select id="langSelect" aria-label="Language selector">
+                    <option value="DE" selected>DE</option>
+                    <option value="EN">EN</option>
+                </select>
+                <label for="signatureImage">Signature Image (optional)</label>
+                <input type="file" id="signatureImage" accept="image/*">
+                <div id="previewArea" class="preview-area" aria-live="polite">
+                    <div><strong>Logo Preview:</strong> <img id="logoPreview" alt="Logo preview" style="max-height:60px"></div>
+                    <div><strong>Stamp Preview:</strong> <img id="stampPreview" alt="Stamp preview" style="max-height:80px"></div>
+                    <div><strong>Signature Preview:</strong> <img id="signaturePreview" alt="Signature preview" style="max-height:80px"></div>
+                </div>
+                <!-- Snapshot & Export JSON removed per user request -->
+            </fieldset>
+
+            <fieldset>
+                <legend>Customer</legend>
+                <label for="denumire">Customer Name</label>
+                <input type="text" id="denumire" list="suggestions4" required aria-required="true" autocomplete="off">
+                <datalist id="suggestions4">
+                    <option value="Daimler Buses GmbH, Postfach 9042, 89087 Neu-Ulm und Daimler Buses GmbH, Hanns-Martin-Schleyer-Str. 21-57, 68301 Mannheim">
+                    <option value="MAN Truck & Bus SE, Heinrich-Büssing-Str. 1, 38239 Salzgitter, Deutschland">
+                </datalist>
+                <label for="numar_doc">Document Number</label>
+                <input type="text" id="numar_doc" required aria-required="true" autocomplete="off">
+            </fieldset>
+
+            <fieldset>
+                <legend>Declaration Type</legend>
+                <div class="radio-group" role="radiogroup" aria-label="Declaration Type">
+                    <label class="inline"><input type="radio" name="declarationType" value="single"> Single Shipment</label>
+                    <label class="inline"><input type="radio" name="declarationType" value="longTerm" checked> Long-Term</label>
+                </div>
+                <div id="shipment-group" class="toggle-group">
+                    <label for="eu_ursprung">Shipment Reference</label>
+                    <input type="text" id="eu_ursprung" autocomplete="off">
+                </div>
+                <div id="date-range-group" class="toggle-group" hidden>
+                    <label for="langzeit_von">Valid From</label>
+                    <input type="date" id="langzeit_von" aria-describedby="rangeHelp">
+                    <label for="langzeit_bis">Valid To</label>
+                    <input type="date" id="langzeit_bis" aria-describedby="rangeHelp">
+                    <small id="rangeHelp" class="help-text">Max 24 months duration.</small>
+                </div>
+            </fieldset>
+
+            <fieldset class="materials-fieldset" id="materials">
+                <legend>Materials</legend>
+                <div class="materials-toolbar" role="group" aria-label="Materials controls">
+                    <div class="materials-left">
+                        <button type="button" id="matAddBtn" class="mat-btn mat-primary" aria-label="Add material row">+ Row</button>
+                        <button type="button" id="matClearEmptyBtn" class="mat-btn" aria-label="Remove empty rows">Clear Empty</button>
+                        <button type="button" id="matExportBtn" class="mat-btn" aria-label="Export rows to CSV">Export CSV</button>
+                        <button type="button" id="matTemplateBtn" class="mat-btn" aria-label="Download Excel template">Template</button>
+                        <button type="button" id="matImportBtn" class="mat-btn" aria-label="Import filled template">Import</button>
+                        <input type="file" id="matImportInput" accept=".xlsx,.xls,.csv" class="visually-hidden" aria-hidden="true">
+                        <div class="materials-filter">
+                            <input type="text" id="matFilter" placeholder="Filter..." aria-label="Filter material rows">
+                        </div>
+                    </div>
+                    <div class="materials-right">
+                        <span id="matMetrics" class="mat-metrics" aria-live="polite">0 rows</span>
+                    </div>
+                </div>
+                <div class="materials-wrapper">
+                    <table id="data-table" class="materials-table" aria-describedby="materialsHelp">
+                        <caption class="visually-hidden">Materials list</caption>
+                        <colgroup>
+                            <col style="width:16%">
+                            <col style="width:18%">
+                            <col style="width:28%">
+                            <col style="width:16%">
+                            <col style="width:14%">
+                            <col style="width:8%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">Material Number</th>
+                                <th scope="col">Customer Material #</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Commodity Code</th>
+                                <th scope="col">Country of Origin</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="materialsBody"></tbody>
+                    </table>
+                </div>
+                <div id="materialsHelp" class="materials-help">Use Tab to navigate cells. A new row is created automatically after filling the last Origin cell. Filter narrows visible rows. Export downloads CSV. Template downloads Excel file; after filling it offline click Import to load rows.</div>
+                <template id="material-row-template">
+                    <tr>
+                        <td contenteditable="true" aria-label="Material number"></td>
+                        <td contenteditable="true" aria-label="Customer material number"></td>
+                        <td contenteditable="true" aria-label="Description"></td>
+                        <td contenteditable="true" aria-label="Commodity Code"></td>
+                        <td contenteditable="true" aria-label="Country of Origin"></td>
+                        <td>
+                            <button type="button" class="mat-up" aria-label="Move up">▲</button>
+                            <button type="button" class="mat-down" aria-label="Move down">▼</button>
+                            <button type="button" class="mat-remove" aria-label="Remove row">✕</button>
+                        </td>
+                    </tr>
+                </template>
+            </fieldset>
+
+            <div class="actions">
+                <button type="button" id="generateCertificateBtn" class="primary">Create Certificate PDF</button>
+            </div>
+        </form>
+    </main>
+
+    <footer class="ihk-footer" role="contentinfo">
+        <small>HRO-C-BS-FT1 Preference Management • Generated on client side</small>
+    </footer>
+
+    <!-- pdfmake CDN without invalid placeholder integrity attributes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./text.js"></script>
+    <script src="../../shared/js/main.js"></script>
+    <script src="./ihk.js"></script>
+    <!-- Removed invalid placeholder integrity attribute to prevent console error -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" crossorigin="anonymous"></script>
+    <script src="./materials.js"></script>
+</body>
+</html>

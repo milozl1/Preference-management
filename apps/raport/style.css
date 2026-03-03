@@ -1,0 +1,304 @@
+.app-shell{max-width:1400px;margin:0 auto;padding:16px 24px;background:#f7f9fc;min-height:100vh}
+.app-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:16px;margin-bottom:20px;padding:12px 0;background:linear-gradient(#ffffff 70%, rgba(255,255,255,0.95));backdrop-filter:saturate(180%) blur(6px);border-bottom:2px solid #e6ebf2}
+.app-header h1{margin:0;font-size:24px;color:#0b4a84;font-weight:700;letter-spacing:-0.5px}
+.back-link{text-decoration:none;color:#0b4a84;font-weight:500;padding:6px 12px;border-radius:6px;transition:background .15s}
+.back-link:hover{background:#e6ebf2}
+.panel{border:1px solid #d5dde5;border-radius:14px;padding:16px;margin:14px 0;background:#fff;box-shadow:0 4px 12px rgba(11,74,132,0.06)}
+.panel-title{margin:0 0 12px 0;color:#0b4a84;font-size:18px;font-weight:700;border-bottom:2px solid #eef2f7;padding-bottom:8px}
+.uploader{display:flex;align-items:center;gap:12px;padding:8px 0}
+.controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:10px 0}
+.btn{background:linear-gradient(135deg, #0b4a84 0%, #0d5a9e 100%);color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:500;transition:all .2s ease;box-shadow:0 2px 4px rgba(11,74,132,0.2)}
+.btn:hover{background:linear-gradient(135deg, #0a3f72 0%, #0b4a84 100%);box-shadow:0 4px 8px rgba(11,74,132,0.25);transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.muted{color:#6b7785;font-size:12px;padding:8px 12px;background:#f7f9fc;border-radius:6px;border-left:3px solid #d5dde5}
+.table-wrap{overflow:auto;max-height:400px;border:1px solid #e1e7ee;border-radius:8px;background:#fafcff}
+.table-wrap table{border-collapse:collapse;width:100%}
+.table-wrap th,.table-wrap td{border:1px solid #e3e9f0;padding:8px 10px;font-size:12px}
+.table-wrap thead th{position:sticky;top:0;background:#f2f6fb;font-weight:600;color:#0b4a84}
+
+/* Charts spacing & Plotly tweaks */
+.panel #chartKPI,
+.panel #chartCluster,
+.panel #chartPieFormat,
+.panel #chartPieTotal,
+.panel #chartARWL,
+.panel #chartDateRequest,
+.panel #chartDateUploadMaint,
+.panel #chartTypeMaintained{position:relative;margin-top:8px;border:1px solid #eef2f7;border-radius:12px;padding:10px;background:linear-gradient(180deg, #ffffff 0%, #fafcff 100%);box-shadow:0 2px 8px rgba(11,74,132,0.04)}
+
+/* Specific min-heights for each chart type */
+#chartKPI{min-height:220px}
+.panel #chartKPI{padding-bottom:8px}
+#chartCluster{min-height:720px}
+#chartDateRequest,#chartDateUploadMaint{min-height:500px}
+#chartARWL,#chartTypeMaintained{min-height:450px}
+#chartPieFormat,#chartPieTotal{min-height:450px}
+
+
+/* Side-by-side PIE charts */
+.charts-row{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:12px;margin-top:8px}
+.charts-row > div{min-height: 340px}
+
+/* Chart captions (optional consistency) */
+.chart-caption{font-size:13px;color:#6b7785;margin:8px 0 4px 4px;font-weight:500}
+
+/* Chart toggle buttons */
+.chart-toggle-container{display:flex;justify-content:flex-end;padding:8px 10px 0;margin-bottom:-4px}
+.chart-toggle-btns{display:inline-flex;gap:4px;background:#f2f6fb;padding:4px;border-radius:8px;border:1px solid #e1e7ee}
+.chart-toggle-btn{display:inline-flex;align-items:center;gap:6px;background:transparent;border:none;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:500;color:#6b7785;cursor:pointer;transition:all .2s ease}
+.chart-toggle-btn:hover{background:rgba(11,74,132,0.08);color:#0b4a84}
+.chart-toggle-btn.active{background:linear-gradient(135deg, #0b4a84 0%, #0d5a9e 100%);color:#fff;box-shadow:0 2px 4px rgba(11,74,132,0.2)}
+.chart-toggle-btn.active svg{stroke:#fff}
+.chart-toggle-btn svg{stroke:#6b7785;transition:stroke .2s}
+.chart-toggle-btn:hover svg{stroke:#0b4a84}
+
+/* Chart download button */
+.chart-download-btn-container{position:absolute;top:15px;right:15px;z-index:100}
+.chart-download-btn{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e1e7ee;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:500;color:#0b4a84;cursor:pointer;transition:all .2s ease;box-shadow:0 2px 6px rgba(11,74,132,0.12)}
+.chart-download-btn:hover{background:linear-gradient(135deg, #0b4a84 0%, #0d5a9e 100%);color:#fff;border-color:#0b4a84;box-shadow:0 4px 12px rgba(11,74,132,0.25);transform:translateY(-1px)}
+.chart-download-btn:hover svg{stroke:#fff}
+.chart-download-btn svg{stroke:#0b4a84;transition:stroke .2s;width:16px;height:16px}
+.chart-download-btn:active{transform:translateY(0)}
+
+/* Month legend for date charts */
+.month-legend-container{display:flex;justify-content:center;padding:8px 10px 4px}
+.month-legend{display:inline-flex;flex-wrap:wrap;gap:8px;align-items:center;background:#f9fafb;padding:6px 12px;border-radius:6px;border:1px solid #e5e7eb;font-size:11px}
+.month-legend-item{display:inline-flex;align-items:center;gap:4px;font-weight:500;color:#374151}
+.month-color{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid rgba(255,255,255,0.8)}
+
+/* KPI Table enhancements */
+.kpi{width:100%;border-collapse:collapse;border-radius:8px;overflow:hidden}
+.kpi th,.kpi td{border:1px solid #e3e9f0;padding:8px 10px;font-size:12px}
+.kpi thead th{background:linear-gradient(135deg, #e6ebf2 0%, #f2f6fb 100%);color:#0b4a84;font-weight:600}
+.kpi tbody tr:nth-child(even){background:#fbfdff}
+.kpi tbody tr:hover{background:#f0f6fc}
+.kpi tbody tr td:last-child{font-weight:700}
+
+/* Status color hints */
+.status-Achieved{color:#2a7f62;background:#e8f5f1}
+.status-Pending{color:#0b4a84;background:#eef2f7}
+.status-NotAchieved{color:#b33f62;background:#fdeaf1}
+
+/* KPI progress bar */
+.kpi-progress-block{margin:8px 4px 14px}
+.kpi-progress-title{font-size:12px;color:#0b4a84;font-weight:600;margin:0 0 6px 2px}
+.kpi-progress{position:relative;height:26px;border-radius:999px;
+	background:linear-gradient(180deg, #f6f9fc 0%, #eef2f7 100%);
+	border:1px solid #e1e7ee;box-shadow:inset 0 1px 2px rgba(11,74,132,0.06)}
+.kpi-progress__fill{position:absolute;left:0;top:0;height:100%;border-radius:999px;
+	background:linear-gradient(90deg, #2a7f62 0%, #39a37f 100%),
+						 repeating-linear-gradient(135deg, rgba(255,255,255,0.15) 0 8px, rgba(255,255,255,0.0) 8px 16px);
+	box-shadow:0 1px 2px rgba(0,0,0,0.08), inset 0 -1px 0 rgba(255,255,255,0.6)}
+.kpi-progress__label{position:absolute;top:50%;transform:translateY(-50%);font-size:12px;color:#ffffff;font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,0.2)}
+.kpi-progress__label--achieved{left:10px;color:#ffffff}
+.kpi-progress__label--remaining{right:10px;color:#111111;text-shadow:0 1px 1px rgba(255,255,255,0.6)}
+
+/* Optional state accents if class is applied on container */
+.kpi-progress--warn .kpi-progress__fill{background:linear-gradient(90deg, #c77d1a 0%, #e39a37 100%),
+	repeating-linear-gradient(135deg, rgba(255,255,255,0.18) 0 8px, rgba(255,255,255,0.0) 8px 16px)}
+.kpi-progress--danger .kpi-progress__fill{background:linear-gradient(90deg, #b33f62 0%, #d0587a 100%),
+	repeating-linear-gradient(135deg, rgba(255,255,255,0.18) 0 8px, rgba(255,255,255,0.0) 8px 16px)}
+
+/* Structure panel */
+#structure{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.struct-card{border:1px solid #e1e7ee;border-radius:10px;padding:14px;background:linear-gradient(135deg, #fafcff 0%, #ffffff 100%);box-shadow:0 2px 6px rgba(0,0,0,0.04);transition:box-shadow .2s, transform .2s}
+.struct-card:hover{box-shadow:0 4px 12px rgba(11,74,132,0.1);transform:translateY(-2px)}
+.struct-card h3{margin:0 0 10px 0;font-size:14px;color:#0b4a84;font-weight:700;border-bottom:2px solid #eef2f7;padding-bottom:6px}
+.struct-kv{font-size:12px;line-height:1.5}
+.struct-kv b{color:#334155}
+.struct-kv div{padding:2px 0}
+/* Ensure custom breakdowns match same typography */
+.struct-breakdown{font-size:12px;line-height:1.5;margin-top:8px;padding-top:8px;border-top:1px dashed #e1e7ee}
+.struct-breakdown div{padding:3px 0;display:flex;flex-wrap:wrap;gap:4px}
+.struct-breakdown b{color:#0b4a84}
+
+/* Accessibility & focus */
+.btn:focus{outline:2px solid #84b6e8;outline-offset:2px}
+select,input[type="number"],input[type="file"]{border:1px solid #d5dde5;border-radius:8px;padding:8px 10px;background:#fff;font-size:13px;transition:border-color .2s, box-shadow .2s}
+select:focus,input[type="number"]:focus,input[type="file"]:focus{outline:none;border-color:#0b4a84;box-shadow:0 0 0 3px rgba(11,74,132,0.15)}
+select:hover,input[type="number"]:hover{border-color:#0b4a84}
+
+/* File input styling */
+input[type="file"]{cursor:pointer}
+input[type="file"]::file-selector-button{background:linear-gradient(135deg, #0b4a84 0%, #0d5a9e 100%);color:#fff;border:0;border-radius:6px;padding:6px 12px;margin-right:10px;cursor:pointer;font-weight:500;transition:background .2s}
+input[type="file"]::file-selector-button:hover{background:linear-gradient(135deg, #0a3f72 0%, #0b4a84 100%)}
+
+/* Responsive Design */
+@media (max-width: 1024px){
+  .app-shell{padding:12px 16px}
+  .charts-row{grid-template-columns:1fr}
+  #structure{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+}
+
+@media (max-width: 768px){
+  .app-shell{padding:10px 12px}
+  .app-header{flex-direction:column;align-items:flex-start;gap:8px}
+  .app-header h1{font-size:20px}
+  .controls{flex-direction:column;align-items:stretch}
+  .controls label{display:flex;justify-content:space-between;align-items:center}
+  .charts-row{gap:8px}
+  .struct-card{padding:12px}
+  .kpi-progress{height:32px}
+  .kpi-progress__label{font-size:11px}
+  .chart-toggle-container{justify-content:center}
+  .chart-toggle-btn{padding:5px 10px;font-size:11px}
+  .month-legend{gap:6px;padding:4px 8px;font-size:10px}
+  .month-color{width:10px;height:10px}
+  .chart-download-btn-container{top:5px;right:5px}
+  .chart-download-btn{padding:5px 10px;font-size:11px;gap:4px}
+  .chart-download-btn svg{width:14px;height:14px}
+}
+
+@media (max-width: 480px){
+  .app-shell{padding:8px}
+  .panel{padding:12px;margin:8px 0;border-radius:10px}
+  .panel-title{font-size:16px}
+  #structure{grid-template-columns:1fr}
+  .struct-card h3{font-size:13px}
+  .btn{width:100%;justify-content:center}
+  .chart-toggle-btns{flex-direction:column;width:100%}
+  .chart-toggle-btn{justify-content:center}
+  .month-legend{gap:4px;padding:4px 6px}
+  .month-legend-item{font-size:10px}
+  .chart-download-btn{padding:4px 8px;font-size:10px}
+  .chart-download-btn span{display:none}
+}
+
+/* Print styles */
+@media print{
+  .app-header{position:static;background:#fff}
+  .back-link,.btn,.uploader,.controls,.chart-toggle-container,.chart-download-btn-container{display:none}
+  .month-legend-container{display:block}
+  .panel{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}
+  .charts-row{grid-template-columns:1fr}
+}
+
+/* ============================================
+   KPI TIMELINE STYLES - OPTIMIZED
+   ============================================ */
+#chartKPITimeline {
+  position: relative;
+  margin: 24px 0;
+}
+
+.kpi-timeline-container {
+  margin: 24px 0;
+  padding: 0;
+  width: 100%;
+}
+
+.kpi-timeline-wrapper {
+  background: linear-gradient(135deg, #f8fafc 0%, #eef3f9 50%, #e4ecf4 100%);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 24px rgba(11, 74, 132, 0.08);
+  border: 1px solid #d0dae8;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Custom scrollbar for timeline */
+.kpi-timeline-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.kpi-timeline-wrapper::-webkit-scrollbar-track {
+  background: #e8eef5;
+  border-radius: 4px;
+}
+
+.kpi-timeline-wrapper::-webkit-scrollbar-thumb {
+  background: #0b4a84;
+  border-radius: 4px;
+  opacity: 0.7;
+}
+
+.kpi-timeline-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #094073;
+}
+
+.timeline-section-title {
+  margin: 0 0 20px 0;
+  padding: 0 0 14px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0b4a84;
+  border-bottom: 2px solid #e1e7ee;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  left: 0;
+  background: inherit;
+}
+
+.kpi-timeline-wrapper svg {
+  display: block;
+  margin: 0 auto;
+  min-width: 1200px;
+  height: auto;
+}
+
+/* Responsive adjustments for timeline */
+@media (max-width: 1400px) {
+  .kpi-timeline-wrapper {
+    padding: 20px;
+  }
+  
+  .kpi-timeline-wrapper svg {
+    min-width: 1150px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .kpi-timeline-wrapper {
+    padding: 16px;
+    border-radius: 12px;
+  }
+  
+  .kpi-timeline-wrapper svg {
+    min-width: 1100px;
+  }
+  
+  .timeline-section-title {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .kpi-timeline-container {
+    margin: 16px 0;
+  }
+  
+  .kpi-timeline-wrapper {
+    padding: 14px;
+  }
+  
+  .kpi-timeline-wrapper svg {
+    min-width: 1000px;
+  }
+  
+  .timeline-section-title {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .kpi-timeline-container {
+    margin: 12px 0;
+  }
+  
+  .kpi-timeline-wrapper {
+    padding: 12px;
+    border-radius: 10px;
+  }
+  
+  .timeline-section-title {
+    font-size: 14px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+  }
+}

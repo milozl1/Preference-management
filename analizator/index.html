@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LTSD Analyzer - Material Check</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1>LTSD Analyzer</h1>
+            <p class="app-description">Upload a Long-Term Supplier Declaration (PDF) to identify materials with incomplete data (missing COO or Commodity Code)</p>
+        </header>
+        <p style="text-align:center; margin: 10px 0;">
+            <a href="../Preference Management.html">← Back to Home</a>
+        </p>
+
+        <main class="main-content">
+            <!-- Secțiunea de încărcare fișier -->
+            <section class="upload-section card">
+                <div class="card__body">
+                    <h2>Upload PDF Document</h2>
+                    <div class="form-group">
+                        <label for="pdf-file" class="form-label">Select LTSD file (PDF)</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="pdf-file" name="pdf-file" accept=".pdf,application/pdf" class="file-input" />
+                            <label for="pdf-file" class="file-input-label">
+                                <span class="file-input-text">Choose PDF file</span>
+                                <span class="file-input-button">Browse</span>
+                            </label>
+                            <span class="file-selected-name" id="file-selected-name">No file selected</span>
+                        </div>
+                    </div>
+                    <button id="analyze-btn" type="button" class="btn btn--secondary btn--full-width" disabled>
+                        Please select a PDF file first
+                    </button>
+                </div>
+            </section>
+
+            <!-- Secțiunea de progres -->
+            <section id="progress-section" class="progress-section hidden">
+                <div class="card">
+                    <div class="card__body">
+                        <div class="progress-indicator">
+                            <div class="spinner"></div>
+                            <p id="progress-text">Processing document...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Secțiunea de rezultate -->
+            <section id="results-section" class="results-section hidden">
+                <div class="card">
+                    <div class="card__header">
+                        <div class="results-header">
+                            <h2>Analysis Results</h2>
+                            <div class="results-actions">
+                                <button id="export-csv-btn" type="button" class="btn btn--outline">
+                                    Export CSV
+                                </button>
+                                <button id="email-missing-coo-btn" type="button" class="btn btn--primary" title="Email CSV of materials missing COO">
+                                    Email Missing COO
+                                </button>
+                                <button id="reset-btn" type="button" class="btn btn--secondary">
+                                    Analyze Another Document
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card__body">
+                        <!-- Sumar rezultate -->
+                        <div id="summary-section" class="summary-section">
+                            <div class="summary-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number" id="total-materials">0</span>
+                                    <span class="stat-label">Total Materials</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="incomplete-materials">0</span>
+                                    <span class="stat-label">Incomplete Materials</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="complete-materials">0</span>
+                                    <span class="stat-label">Complete Materials</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="missing-coo-count">0</span>
+                                    <span class="stat-label">Missing COO</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="missing-commodity-count">0</span>
+                                    <span class="stat-label">Missing Commodity Code</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="pref-inconsistent-count">0</span>
+                                    <span class="stat-label">Preference Yes & COO non‑EU</span>
+                                </div>
+                            </div>
+                            <div id="completion-status" class="completion-status"></div>
+                        </div>
+
+                        <!-- Filtre -->
+                        <div id="filters-section" class="filters-section">
+                            <h3>Filters</h3>
+                            <div class="filters-grid">
+                                <div class="filter-group">
+                                    <label for="filter-material" class="form-label">Material Number</label>
+                                    <input type="text" id="filter-material" class="form-control filter-input" placeholder="Search by material number...">
+                                </div>
+                                <div class="filter-group">
+                                    <label for="filter-description" class="form-label">Material Description</label>
+                                    <input type="text" id="filter-description" class="form-control filter-input" placeholder="Search by description...">
+                                </div>
+                                <div class="filter-group">
+                                    <label for="filter-commodity" class="form-label">Commodity Code</label>
+                                    <input type="text" id="filter-commodity" class="form-control filter-input" placeholder="Search by commodity code...">
+                                </div>
+                                <div class="filter-group">
+                                    <label for="filter-coo" class="form-label">COO (ISO‑2)</label>
+                                    <input type="text" id="filter-coo" class="form-control filter-input" placeholder="e.g. DE or DE,FR,IT">
+                                </div>
+                                <div class="filter-group">
+                                    <label for="filter-status" class="form-label">Status</label>
+                                    <select id="filter-status" class="form-control">
+                                        <option value="all">All</option>
+                                        <option value="incomplete">Only Incomplete</option>
+                                        <option value="missing-coo">Missing COO</option>
+                                        <option value="missing-commodity">Missing Commodity Code</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label for="filter-preference" class="form-label">Preference</label>
+                                    <select id="filter-preference" class="form-control">
+                                        <option value="all">All</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label class="form-label" for="filter-pref-inconsistent">Special</label>
+                                    <div>
+                                        <label style="display:flex;align-items:center;gap:8px;">
+                                            <input type="checkbox" id="filter-pref-inconsistent" />
+                                            <span>Only Preference Yes & COO non‑EU</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="filter-group">
+                                    <button id="clear-filters-btn" type="button" class="btn btn--outline">Clear Filters</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tabel rezultate -->
+                        <div class="table-container">
+                            <table id="materials-table" class="materials-table">
+                                <thead>
+                                    <tr>
+                                        <th>Material Number</th>
+                                        <th>Material Description</th>
+                                        <th>Commodity Code</th>
+                                        <th>COO (Country of Origin)</th>
+                                        <th>Preference (Yes/No)</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="materials-tbody">
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Mesaj pentru tabel gol -->
+                        <div id="no-results-message" class="no-results-message hidden">
+                            <p>No materials match the current filters.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- App Footer -->
+    <footer class="app-footer" role="contentinfo">
+        <div class="container footer-inner">
+            <div class="footer-left">
+                <div class="footer-title">LTSD Analyzer</div>
+                <div class="footer-meta">
+                    <span>v1.0.0</span>
+                    <span aria-hidden="true">·</span>
+                    <span>© 2025 Zlatan Milosevic</span>
+                    <span aria-hidden="true">·</span>
+                    <span>Last file: <strong id="footer-file-name">—</strong></span>
+                    <span aria-hidden="true">·</span>
+                    <span>Rows: <strong id="footer-row-count">0</strong></span>
+                </div>
+            </div>
+            <div class="footer-center">
+                <nav class="footer-links" aria-label="Footer">
+            
+                </nav>
+            </div>
+            <div class="footer-right">
+                <button id="print-btn" type="button" class="btn btn--outline btn--sm" title="Print results">Print</button>
+                <button id="theme-toggle" type="button" class="btn btn--secondary btn--sm" aria-pressed="false" aria-label="Toggle theme">Dark mode</button>
+                <button id="back-to-top" type="button" class="btn btn--outline btn--sm" title="Back to top">Top</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Help / About Modal -->
+    <div id="help-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="help-modal-title">
+        <div class="modal-backdrop" data-close-modal></div>
+        <div class="modal-dialog" role="document">
+            <div class="modal-header">
+                <h3 id="help-modal-title">About LTSD Analyzer</h3>
+                <button type="button" class="modal-close" data-close-modal aria-label="Close">×</button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    This tool analyzes Long-Term Supplier Declarations (PDF) and extracts materials,
+                    Commodity Code (8 digits), COO (ISO‑2), and Preference (Yes/No). It flags cases
+                    where Preference = Yes but COO is not an EU country.
+                </p>
+                <ul>
+                    <li>Upload the LTSD PDF using the Upload section.</li>
+                    <li>Use Filters to narrow results (Material, Description, Commodity, COO, Status, Preference).</li>
+                    <li>Toggle “Only Preference Yes & COO non‑EU” to find potential inconsistencies.</li>
+                    <li>Export results as CSV or print the table for reviews.</li>
+                </ul>
+                <p class="muted">Note: Parsing relies on positions; if a new layout fails, share a sample to improve detection.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn--secondary" data-close-modal>Close</button>
+                <a href="#" class="btn btn--outline" target="_blank" rel="noopener">Learn more</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

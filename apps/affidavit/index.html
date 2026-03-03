@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COO Affidavit</title>
+    <link rel="stylesheet" href="../../shared/css/test.css">
+</head>
+<body>
+    <header>
+        <h1 class="title">AFFIDAVIT</h1>
+    </header>
+    <p style="text-align:center; margin: 10px 0;">
+        <a href="../../Preference Management.html">← Back to Home</a>
+    </p>
+
+    <div class="input-container">
+        <label for="lu2">Legal Unit:</label>
+        <input type="text" id="lu2" list="suggestions">
+        <datalist id="suggestions">
+            <option value="HELLA GmbH & Co. KGaA, Rixbecker Str. 75, D-59552">
+            <option value="Hella Innenleuchten Systeme GmbH, Maienbuhlstr. 7, D-79677">
+            <option value="Hella Fahrzeugkomponenten GmbH, Dortmunder Str. 5, D-28199">
+            <option value="HELLA Autotechnik NOVA s.r.o., Druzstevni 338/16, CZ-789 85">
+            <option value="UAB HELLA Lithuania, Oro parko str. 6, 54460">
+            <option value="HELLA Romania SRL, Str. Hella Nr. 3, 307200">
+            <option value="HELLA Slovakia Lighting s.r.o., Kočovce 228, SK-916 31">
+            <option value="Hella Saturnus Slovenija d.o.o., Letališka cesta 17, SI-1000">
+            <!-- Adăugați aici mai multe sugestii după necesitate -->
+        </datalist>
+    </div>
+    <div class="container">
+    <table border="1" id="data-table">
+        <thead>
+            <tr>
+                <th>Material Number</th>
+                <th>Customer Material Number</th>
+                <th>Description</th>
+                <th>Country of origin</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="container2">
+    <button id="addRowButton" onclick="addRowToTable()">ADD ROW</button>
+    </div>
+    <div class="input-container">
+        <label for="person1">Issuing person</label>
+        <input type="text" id="person1"  list="suggestions1">
+        <datalist id="suggestions1">
+            <option value="Milosevic Zlatan">
+            <option value="Secan Larisa Mirela">
+            <option value="Micsa Oana Alexandra">
+            <option value="Barbu Mirela Lidia">
+            <option value="Lisi Alexandru Razvan">    
+            <!-- Adăugați aici mai multe sugestii după necesitate -->
+        </datalist>
+    </div>
+    <div class="input-container">
+        <label for="email">Contact e-mail</label>
+        <input type="text" id="email"  list="suggestions2">
+        <datalist id="suggestions2">
+            <option value="mirelalidia.barbu@forvia.com">
+            <option value="larisamirela.secan@forvia.com">
+            <option value="oanaalexandra.micsa@forvia.com">
+            <option value="zlatan.milosevic@forvia.com">
+            <option value="alexandrurazvan.lisi@forvia.com">    
+            <!-- Adăugați aici mai multe sugestii după necesitate -->
+        </datalist>
+    </div>
+    <div class="input-container">
+        <label for="place1">Place</label>
+        <input type="text" id="place1"   list="suggestions3">
+        <datalist id="suggestions3">
+            <option value="LIPPSTADT">
+            <option value="WEMBACH">
+            <option value="BREMEN">
+            <option value="MOHELNICE">
+            <option value="KOCOVCE">
+            <option value="LJUBLJANA">
+            <option value="GHIRODA - JUDETUL TIMIS">
+            <option value="KARMELAVA, KAUNAS DISTRICT">
+            <!-- Adăugați aici mai multe sugestii după necesitate -->
+        </datalist>
+    <div class="input-container">
+        <label for="numar_material">Document Number</label>
+        <input type="text" id="numar_doc">
+    </div>
+    <div>
+        <label>Validity period</label>
+        <input type="date" id="langzeit_von">
+        <label>to:</label>
+        <input type="date" id="langzeit_bis">
+    </div>
+    <button onclick="generatePDF()">CREATE CERTIFICATE</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+    <script src="../../shared/js/main.js"></script>
+    <script>
+           function addRowToTable() {
+        const table = document.getElementById("data-table").getElementsByTagName('tbody')[0];
+        const newRow = table.insertRow(-1);
+    
+        // Adăugați celule pentru fiecare coloană cu contenteditable="true"
+        const cell1 = newRow.insertCell(0);
+        cell1.setAttribute("contenteditable", "true");
+        const cell2 = newRow.insertCell(1);
+        cell2.setAttribute("contenteditable", "true");
+        const cell3 = newRow.insertCell(2);
+        cell3.setAttribute("contenteditable", "true");
+        const cell4 = newRow.insertCell(3);
+        cell4.setAttribute("contenteditable", "true");
+    }
+    </script>
+
+    <header>
+        <h4 class="text">HRO-C-BS-FT1 PREFERENCE MANAGEMENT</h4>
+    </header>
+
+</body>
+</html>

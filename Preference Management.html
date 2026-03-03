@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preference Management</title>
+    <link rel="stylesheet" href="shared/css/fiori.css" />
+</head>
+<body>
+    <div class="launchpad">
+        <div class="lp-header">
+            <div>
+                <div class="lp-breadcrumb">Foreign Trade</div>
+                <div class="lp-title">Preference Management</div>
+            </div>
+        </div>
+
+        <!-- Top Tabs -->
+        <nav class="lp-tabs" role="tablist" aria-label="Sections">
+            <button class="lp-tab" role="tab" aria-selected="false" data-target="master-data">Master Data</button>
+            <button class="lp-tab" role="tab" aria-selected="false" data-target="preference-determination">Preference Determination</button>
+            <button class="lp-tab" role="tab" aria-selected="true" data-target="customer">Customer</button>
+            <button class="lp-tab" role="tab" aria-selected="false" data-target="supplier">Supplier</button>
+        </nav>
+
+
+        <!-- All Applications with filterable tiles -->
+        <section class="lp-section active" aria-label="Applications">
+            <div class="lp-section-title">Applications</div>
+            <div class="lp-grid lp-row" id="appGrid">
+                <a class="lp-tile" data-group="customer" href="apps/daf/index.html">
+                    <div class="lp-tile-title">DAF (Agreement Exclusions)</div>
+                    <div class="lp-tile-sub">Products</div>
+                </a>
+                <a class="lp-tile" data-group="customer" href="analizator/index.html">
+                    <div class="lp-tile-title">LTSD Analyzer</div>
+                    <div class="lp-tile-sub">Products</div>
+                </a>
+                <a class="lp-tile" data-group="customer" href="apps/ihk/index.html">
+                    <div class="lp-tile-title">Issue IHK Declaration</div>
+                    <div class="lp-tile-sub">Documents</div>
+                </a>
+                <a class="lp-tile" data-group="customer" href="https://faurecia-my.sharepoint.com/personal/zlatan_milosevic_forvia_com/Lists/Backlog%20LTSD/AllItems.aspx?env=WebViewList" target="_blank" rel="noopener noreferrer">
+                    <div class="lp-tile-title">LTSD Backlog</div>
+                    <div class="lp-tile-sub">Backlog</div>
+                </a>
+                <a class="lp-tile" data-group="supplier" href="apps/sam/index.html">
+                    <div class="lp-tile-title">Supplier FTA Matching Tool</div>
+                    <div class="lp-tile-sub">Products</div>
+                </a>
+                <a class="lp-tile" data-group="supplier" href="apps/raport/index.html">
+                    <div class="lp-tile-title">Supplier's Annual Report</div>
+                    <div class="lp-tile-sub">Reports</div>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Filter-like tab controller: show all tiles on load, filter by tab on click
+        const tabs = document.querySelectorAll('.lp-tab');
+        const tiles = document.querySelectorAll('.lp-tile');
+        function filterBy(group) {
+            // update tab selection state
+            tabs.forEach(t => t.setAttribute('aria-selected', String(t.dataset.target === group)));
+            // apply filtering
+            if (!group || group === 'all') {
+                tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+                tiles.forEach(el => el.style.display = '');
+            } else {
+                tiles.forEach(el => {
+                    el.style.display = (el.dataset.group === group) ? '' : 'none';
+                });
+                // If no tiles match this group, show all tiles with a subtle indication
+                const anyVisible = Array.from(tiles).some(el => el.style.display !== 'none');
+                if (!anyVisible) {
+                    tiles.forEach(el => el.style.display = '');
+                }
+            }
+        }
+        tabs.forEach(t => t.addEventListener('click', () => {
+            const current = t.getAttribute('aria-selected');
+            // Toggle: clicking an active tab deselects and shows all
+            if (current === 'true') {
+                filterBy('all');
+            } else {
+                filterBy(t.dataset.target);
+            }
+        }));
+        // Default: show all tiles
+        filterBy('all');
+    </script>
+</body>
+</html>

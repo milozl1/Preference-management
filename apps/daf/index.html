@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUPPLIER AGREEMENT MATCHING TOOL</title>
+    <link rel="stylesheet" href="../../shared/css/styles1.css">
+</head>
+<body>
+    <header>
+        <h1 class="title"></h1>
+        <h1 class="title">DAF AGREEMENT MATCHING TOOL</h1>
+    </header>
+    <p style="text-align:center; margin: 10px 0;">
+        <a href="../../Preference Management.html">← Back to Home</a>
+    </p>
+    
+    <main class="container">
+        <section class="input-section">
+            <label for="textInput" class="input-label">Exclusions of agreements:</label>
+            <div class="input-container">
+                <input type="text" id="textInput" class="input-field" placeholder="Enter agreement here" />
+                <button id="startButton" class="start-button">Start</button>
+            </div>
+        </section>
+        
+        <section class="results-section">
+            <div class="results-container">
+                <div id="resultAreaContainer" class="result-box">
+                    <h3 class="result-subtitle">Results</h3>
+                    <h3 class="result-subtitle"> </h3>
+                    <textarea id="resultArea" class="result-textarea" readonly rows="10" cols="50"></textarea>
+                    <h3 class="result-subtitle"> </h3>
+                    <button id="copyButton" class="copy-button">Copy</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="./DAF.js"></script>
+
+    <div>
+        <h5 class="text">HRO-C-BS-FT1 PREFERENCE MANAGEMENT</h5>
+    </div>
+</body>
+</html>

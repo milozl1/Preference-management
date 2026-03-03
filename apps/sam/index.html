@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUPPLIER AGREEMENT MATCHING TOOL</title>
+    <!-- Modernized styling using shared Fiori-like base + SAM specific overrides -->
+    <link rel="stylesheet" href="../../shared/css/fiori.css">
+    <link rel="stylesheet" href="sam.css">
+</head>
+<body>
+    <header class="sam-header">
+        <h1 class="sam-app-title">SAM</h1>
+        <p class="sam-sub">SUPPLIER AGREEMENT MATCHING TOOL</p>
+        <p class="sam-back"><a href="../../Preference Management.html" class="sam-back-link">← Back to Home</a></p>
+    </header>
+    
+    <main class="container">
+        <section class="input-section sam-card">
+            <label for="textInput" class="input-label">Supplier's Free Trade Agreement:</label>
+
+            <div class="input-container">
+                <input type="text" id="textInput" class="input-field" autocomplete="off" placeholder="Enter agreement here (paste list, codes separated by space, comma, slash)" />
+                <button id="startButton" class="start-button" aria-label="Run matching">Start</button>
+            </div>
+            <div class="sam-hint" id="liveHint">Type or paste codes – matching runs live.</div>
+            <div class="sam-actions" aria-label="Result actions">
+                <button id="copyPositiveBtn" class="sam-btn" disabled>Copy Positive</button>
+                <button id="copyNegativeBtn" class="sam-btn" disabled>Copy Negative</button>
+                <button id="clearInputBtn" class="sam-btn sam-btn-outline">Clear</button>
+            </div>
+        </section>
+
+        <section id="summaryPanel" class="sam-summary sam-card" hidden>
+            <div class="sam-summary-grid">
+                <div class="sam-summary-item" aria-label="Total agreements tracked">
+                    <div class="sam-summary-number" id="totalAgreements">0</div>
+                    <div class="sam-summary-label">Tracked</div>
+                </div>
+                <div class="sam-summary-item" aria-label="Agreements matched">
+                    <div class="sam-summary-number sam-pos" id="positiveCount">0</div>
+                    <div class="sam-summary-label">Positive</div>
+                </div>
+                <div class="sam-summary-item" aria-label="Agreements not matched">
+                    <div class="sam-summary-number sam-neg" id="negativeCount">0</div>
+                    <div class="sam-summary-label">Negative</div>
+                </div>
+                <div class="sam-summary-item" aria-label="Coverage percent">
+                    <div class="sam-summary-number" id="coveragePercent">0%</div>
+                    <div class="sam-summary-label">Coverage</div>
+                </div>
+            </div>
+            <div id="summaryNote" class="sam-summary-note"></div>
+        </section>
+        
+        <section class="results-section">
+            <div class="results-container">
+                <div id="positiveResults" class="result-box sam-card">
+                    <h3 class="result-subtitle">Positive</h3>
+                    <ul id="positiveList" class="result-list" aria-live="polite"></ul>
+                </div>
+                <div id="negativeResults" class="result-box sam-card">
+                    <h3 class="result-subtitle">Negative</h3>
+                    <ul id="negativeList" class="result-list" aria-live="polite"></ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="./app.js"></script>
+
+    <footer class="sam-footer">
+        <small class="sam-foot-note">HRO-C-BS-FT1 PREFERENCE MANAGEMENT · Enhanced SAM UI</small>
+    </footer>
+    
+</body>
+</html>

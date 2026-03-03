@@ -1,0 +1,135 @@
+/* Resetare stiluri implicite ale elementelor */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Stilizare font global */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Stilizare fundal pagina */
+body {
+    background-color: #f4f4f4;
+}
+
+/* Centrare orizontală */
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+/* Stilizare etichetă label */
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Stilizare input text */
+input[type="text"]{
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    font-size: 14px;
+    background-color: #fff;
+    transition: border-color 0.3s ease-in-out;
+    margin-top: 5px;
+}
+
+/* Stilizare input text la hover */
+input[type="text"]:hover,
+input[type="date"]:hover {
+    border-color: #007bff;
+}
+
+/* Stilizare input text la focus */
+input[type="text"]:focus,
+input[type="date"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+/* Stilizare buton generare PDF */
+button {
+    padding: 10px 40px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Stilizare buton generare PDF la hover */
+button:hover {
+    background-color: #00b33c;
+}
+
+/* Aliniere dreapta a butonului generare PDF */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px; /* Distanța redusă */
+}
+/* Aliniere la stânga pentru input-urile de tip "date" */
+input[type="date"] {
+    text-align: auto;
+}
+table {
+    width: 70%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Distanța față de rândul anterior */
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Stilizare buton "Adaugă Rând" */
+#addRowButton {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 20px; /* Distanța față de tabel */
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Stilizare buton "Adaugă Rând" la hover */
+#addRowButton:hover {
+    background-color: #00b33c;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

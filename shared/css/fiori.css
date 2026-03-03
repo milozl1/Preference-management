@@ -1,0 +1,75 @@
+/* Fiori-like Launchpad styling (lightweight, no UI5 dependency) */
+:root {
+  --bg-start: #d8e6f6;
+  --bg-end: #eef4fb;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --tile-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.06);
+  --tile-shadow-hover: 0 6px 16px rgba(0,0,0,0.10);
+  --radius: 10px;
+  --accent: #0a6ed1; /* SAP blue */
+  --accent-weak: #e3f2ff;
+  --border: #e5e7eb;
+  --tab-active: #ffffff;
+  --tab-inactive: transparent;
+  --container-max: 1300px;
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Inter, Arial, sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%) fixed;
+}
+
+.launchpad { max-width: var(--container-max); margin: 0 auto; padding: 16px 20px 40px; }
+
+/* Top navigation tabs */
+.lp-tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--border); padding-bottom: 8px; overflow-x: auto; }
+.lp-tab {
+  appearance: none; border: 1px solid transparent; background: var(--tab-inactive); color: var(--text);
+  padding: 8px 14px; border-radius: 999px; font-weight: 600; cursor: pointer;
+}
+.lp-tab[aria-selected="true"] { background: var(--tab-active); box-shadow: var(--tile-shadow); border-color: var(--border); }
+.lp-tab:hover { background: #fff; }
+
+/* Section heading */
+.lp-section { margin-top: 18px; }
+.lp-section-title { font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin: 10px 4px; }
+
+/* Tile grid */
+.lp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 12px; }
+
+/* Tile card */
+.lp-tile { display: flex; flex-direction: column; gap: 10px; min-height: 130px; padding: 14px; border-radius: var(--radius); background: var(--surface); box-shadow: var(--tile-shadow); border: 1px solid var(--border); transition: transform .12s ease, box-shadow .2s ease; text-decoration: none; color: inherit; }
+.lp-tile:hover { transform: translateY(-2px); box-shadow: var(--tile-shadow-hover); }
+.lp-tile:active { transform: translateY(0); }
+
+.lp-tile-title { font-weight: 700; line-height: 1.25; }
+.lp-tile-sub { font-size: 12px; color: var(--muted); }
+
+/* Tile footer KPI */
+.lp-tile-footer { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.kpi { font-weight: 800; color: var(--accent); }
+.kpi-note { font-size: 12px; color: var(--muted); }
+
+/* Category visibility */
+[data-category] { display: none; }
+[data-category].active { display: block; }
+
+/* Utility */
+.lp-row { margin-top: 16px; }
+.lp-sep { height: 1px; background: var(--border); margin: 8px 0; }
+
+/* Header */
+.lp-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.lp-title { font-size: 22px; font-weight: 800; letter-spacing: .2px; }
+.lp-breadcrumb { font-size: 12px; color: var(--muted); }
+
+/* Small screen tweaks */
+@media (max-width: 600px) {
+  .lp-title { font-size: 18px; }
+  .lp-tile { min-height: 120px; }
+}

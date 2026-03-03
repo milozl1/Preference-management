@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supplier's Annual Report</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+  <link rel="stylesheet" href="../../shared/css/fiori.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./lib/tabulator.min.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <a class="back-link" href="../../Preference Management.html">← Launchpad</a>
+      <h1>Report Hypercare</h1>
+    </header>
+
+    <section class="panel">
+      <h2 class="panel-title">Data Source</h2>
+      <div class="uploader">
+        <input id="fileInput" type="file" accept=".xlsx,.xls,.csv" />
+        <span id="loadStatus" class="muted"></span>
+      </div>
+      <div class="meta" id="meta"></div>
+      <div class="controls">
+        <label>Sheet:
+          <select id="sheetSelect"></select>
+        </label>
+        <label>Rows Preview:
+          <input id="rowsLimit" type="number" min="10" max="1000" step="10" value="100" />
+        </label>
+        <button id="refreshPreview" class="btn">Refresh Preview</button>
+        <button id="tableToggle" class="btn" aria-expanded="false">Show Table</button>
+        
+      </div>
+      <div class="table-wrap" id="tableWrap" style="display:none"></div>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-title">Dataset</h2>
+      <div id="structure"></div>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-title">Charts</h2>
+      <div class="chart-caption">Overview metrics and distributions</div>
+      <div id="chartKPI"></div>
+      <!-- KPI Timeline will be inserted here dynamically -->
+      <div id="chartCluster"></div>
+      <div class="charts-row">
+        <div id="chartPieFormat"></div>
+        <div id="chartPieTotal"></div>
+      </div>
+      <div id="chartDateRequest"></div>
+      <div id="chartDateUploadMaint"></div>
+      <div class="charts-row">
+        <div id="chartARWL"></div>
+        <div id="chartTypeMaintained"></div>
+      </div>
+    </section>
+
+    
+  </div>
+
+  <!-- Local libraries -->
+  <script src="./lib/xlsx.full.min.js"></script>
+  <script src="./lib/tabulator.min.js"></script>
+  <script src="./lib/arquero.min.js"></script>
+  <script src="./lib/plotly.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

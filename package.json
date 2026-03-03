@@ -1,0 +1,28 @@
+{
+  "name": "preference-management",
+  "version": "1.0.0",
+  "description": "This folder organizes multiple small web apps under a single entry point.",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/milozl1/Preference-management.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/milozl1/Preference-management/issues"
+  },
+  "homepage": "https://github.com/milozl1/Preference-management#readme",
+  "devDependencies": {
+    "@vitest/coverage-v8": "^4.0.18",
+    "jsdom": "^28.1.0",
+    "vitest": "^4.0.18"
+  }
+}
