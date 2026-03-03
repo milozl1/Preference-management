@@ -4,7 +4,7 @@ This folder organizes multiple small web apps under a single entry point.
 
 ## Structure
 
-- Preference Management.html (home menu)
+- index.html (home menu)
 - apps/
   - sam/
     - index.html
@@ -30,7 +30,7 @@ This folder organizes multiple small web apps under a single entry point.
 
 ## Usage
 
-Open `Preference Management.html` and click an app button. Ensure you serve files from the `Javascript app` folder so relative paths resolve.
+Open `index.html` and click an app button. Ensure you serve files from the `Javascript app` folder so relative paths resolve.
 
 ## Notes
 
