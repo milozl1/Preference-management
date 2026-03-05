@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COO Cross-Reference Tool</title>
+  <link rel="stylesheet" href="../../shared/css/fiori.css" />
+  <link rel="stylesheet" href="cross.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <a class="back-link" href="../../index.html">← Launchpad</a>
+      <h1>COO Cross-Reference</h1>
+      <p class="app-sub">Populate Country of Origin from MB51 + Reference Data</p>
+    </header>
+
+    <section class="panel">
+      <h2 class="panel-title">Upload Excel File</h2>
+      <p class="panel-hint">Select an Excel file with <strong>Sheet1</strong> (MB51 data: Material, Plant, COO …) and <strong>Sheet2</strong> (Reference: Product, Plant, COO).</p>
+      <div class="uploader">
+        <label class="upload-label" for="fileInput">
+          <span class="upload-icon">📂</span>
+          <span class="upload-text">Choose .xlsx file</span>
+          <input id="fileInput" type="file" accept=".xlsx,.xls" />
+        </label>
+        <span id="fileName" class="file-name"></span>
+      </div>
+    </section>
+
+    <section class="panel" id="configPanel" hidden>
+      <h2 class="panel-title">Sheet Configuration</h2>
+      <div class="config-grid">
+        <div class="config-item">
+          <label for="sheet1Select">Data Sheet (MB51):</label>
+          <select id="sheet1Select"></select>
+        </div>
+        <div class="config-item">
+          <label for="sheet2Select">Reference Sheet (COO):</label>
+          <select id="sheet2Select"></select>
+        </div>
+      </div>
+      <button id="processBtn" class="btn btn-primary">Process &amp; Fill COO</button>
+    </section>
+
+    <section class="panel" id="resultPanel" hidden>
+      <h2 class="panel-title">Results</h2>
+      <div class="summary-grid">
+        <div class="summary-card">
+          <div class="summary-number" id="totalRows">0</div>
+          <div class="summary-label">Total Rows</div>
+        </div>
+        <div class="summary-card summary-success">
+          <div class="summary-number" id="matchedRows">0</div>
+          <div class="summary-label">COO Filled</div>
+        </div>
+        <div class="summary-card summary-warn">
+          <div class="summary-number" id="unmatchedRows">0</div>
+          <div class="summary-label">Not Found</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-number" id="coveragePct">0%</div>
+          <div class="summary-label">Coverage</div>
+        </div>
+      </div>
+
+      <div class="preview-section">
+        <h3>Preview (first 50 rows)</h3>
+        <div class="table-wrap">
+          <table id="previewTable">
+            <thead id="previewHead"></thead>
+            <tbody id="previewBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="unmatched-section" id="unmatchedSection" hidden>
+        <h3>Unmatched Materials <span class="badge" id="unmatchedBadge">0</span></h3>
+        <div class="table-wrap table-wrap-small">
+          <table id="unmatchedTable">
+            <thead><tr><th>Material</th><th>Plant</th></tr></thead>
+            <tbody id="unmatchedBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="downloadBtn" class="btn btn-primary">Download Completed Excel</button>
+      </div>
+    </section>
+
+    <div id="spinner" class="spinner-overlay" hidden>
+      <div class="spinner"></div>
+      <p>Processing…</p>
+    </div>
+  </div>
+
+  <script src="../../shared/js/main.js"></script>
+  <script src="../raport/lib/xlsx.full.min.js"></script>
+  <script src="cross.js"></script>
+</body>
+</html>

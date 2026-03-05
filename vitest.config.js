@@ -11,6 +11,7 @@ export default defineConfig({
       include: [
         'apps/sam/app.js',
         'apps/daf/DAF.js',
+        'apps/cross/cross.js',
         'shared/js/main.js',
         'analizator/app.js',
         'apps/ihk/text.js'
