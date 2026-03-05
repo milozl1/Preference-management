@@ -28,7 +28,7 @@
       </div>
     </section>
 
-    <section class="panel" id="configPanel" hidden>
+    <section class="panel" id="configPanel" style="display:none">
       <h2 class="panel-title">Sheet Configuration</h2>
       <div class="config-grid">
         <div class="config-item">
@@ -43,7 +43,7 @@
       <button id="processBtn" class="btn btn-primary">Process &amp; Fill COO</button>
     </section>
 
-    <section class="panel" id="resultPanel" hidden>
+    <section class="panel" id="resultPanel" style="display:none">
       <h2 class="panel-title">Results</h2>
       <div class="summary-grid">
         <div class="summary-card">
@@ -74,7 +74,7 @@
         </div>
       </div>
 
-      <div class="unmatched-section" id="unmatchedSection" hidden>
+      <div class="unmatched-section" id="unmatchedSection" style="display:none">
         <h3>Unmatched Materials <span class="badge" id="unmatchedBadge">0</span></h3>
         <div class="table-wrap table-wrap-small">
           <table id="unmatchedTable">
@@ -89,9 +89,9 @@
       </div>
     </section>
 
-    <div id="spinner" class="spinner-overlay" hidden>
+    <div id="spinner" class="spinner-overlay" style="display:none">
       <div class="spinner"></div>
-      <p>Processing…</p>
+      <p id="spinnerText">Processing…</p>
     </div>
   </div>
 

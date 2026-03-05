@@ -215,9 +215,8 @@ td.coo-missing {
   gap: 10px;
 }
 
-/* Spinner — default hidden; display: flex only when the [hidden] attr is absent */
+/* Spinner — visibility controlled exclusively via inline style.display in JS */
 .spinner-overlay {
-  display: none;
   position: fixed;
   inset: 0;
   background: rgba(255,255,255,0.85);
@@ -225,9 +224,6 @@ td.coo-missing {
   align-items: center;
   justify-content: center;
   z-index: 1000;
-}
-.spinner-overlay:not([hidden]) {
-  display: flex;
 }
 .spinner {
   width: 44px;

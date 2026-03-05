@@ -110,45 +110,62 @@ if (typeof document !== 'undefined') {
     const unmatchedBody   = document.getElementById('unmatchedBody');
     const downloadBtn    = document.getElementById('downloadBtn');
     const spinner        = document.getElementById('spinner');
+    const spinnerText    = document.getElementById('spinnerText');
 
     let workbook = null;
     let processedData = null;
+
+    /* ── Spinner helpers (inline style — no CSS specificity issues) ── */
+    function showSpinner(msg) {
+      spinnerText.textContent = msg || 'Processing…';
+      spinner.style.display = 'flex';
+    }
+    function hideSpinner() {
+      spinner.style.display = 'none';
+    }
+
+    /* ── Verify XLSX library loaded ─────────────────────────────── */
+    if (typeof XLSX === 'undefined') {
+      var warn = document.createElement('div');
+      warn.style.cssText = 'padding:16px;margin:12px 0;background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;color:#991b1b;font-weight:600;';
+      warn.textContent = 'Error: XLSX library failed to load. Check that the file "../raport/lib/xlsx.full.min.js" is accessible.';
+      document.querySelector('.app-shell').insertBefore(warn, configPanel);
+      fileInput.disabled = true;
+      processBtn.disabled = true;
+    }
 
     /* ── File load ──────────────────────────────────────────────── */
     fileInput.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (!file) return;
       fileNameEl.textContent = file.name;
-      resultPanel.hidden = true;
-      spinner.hidden = false;
+      resultPanel.style.display = 'none';
+      showSpinner('Reading file…');
 
       const reader = new FileReader();
       reader.onerror = () => {
-        spinner.hidden = true;
+        hideSpinner();
         alert('Error reading file. Please try again.');
       };
       reader.onload = (evt) => {
         try {
-          const data = new Uint8Array(evt.target.result);
+          var data = new Uint8Array(evt.target.result);
           workbook = XLSX.read(data, { type: 'array' });
 
           // Populate sheet selectors
           sheet1Select.innerHTML = '';
           sheet2Select.innerHTML = '';
           workbook.SheetNames.forEach((name, idx) => {
-            const opt1 = new Option(name, name, idx === 0, idx === 0);
-            const opt2 = new Option(name, name, idx === 1, idx === 1);
-            sheet1Select.appendChild(opt1);
-            sheet2Select.appendChild(opt2);
+            sheet1Select.appendChild(new Option(name, name, idx === 0, idx === 0));
+            sheet2Select.appendChild(new Option(name, name, idx === 1, idx === 1));
           });
 
-          configPanel.hidden = false;
+          configPanel.style.display = '';
         } catch (err) {
           workbook = null;
           alert('Failed to parse Excel file: ' + err.message);
-        } finally {
-          spinner.hidden = true;
         }
+        hideSpinner();
       };
       reader.readAsArrayBuffer(file);
     });
@@ -156,23 +173,25 @@ if (typeof document !== 'undefined') {
     /* ── Process ────────────────────────────────────────────────── */
     processBtn.addEventListener('click', () => {
       if (!workbook) return;
-      spinner.hidden = false;
+      showSpinner('Processing… please wait');
 
-      // Use setTimeout to let the spinner render before heavy processing
+      // Use setTimeout to let the browser paint the spinner before heavy work
       setTimeout(() => {
         try {
-          const sheet1Name = sheet1Select.value;
-          const sheet2Name = sheet2Select.value;
+          var sheet1Name = sheet1Select.value;
+          var sheet2Name = sheet2Select.value;
 
           if (sheet1Name === sheet2Name) {
+            hideSpinner();
             alert('Data sheet and reference sheet must be different.');
             return;
           }
 
-          const dataRows = XLSX.utils.sheet_to_json(workbook.Sheets[sheet1Name], { header: 1, defval: '' });
-          const refRows  = XLSX.utils.sheet_to_json(workbook.Sheets[sheet2Name], { header: 1, defval: '' });
+          var dataRows = XLSX.utils.sheet_to_json(workbook.Sheets[sheet1Name], { header: 1, defval: '' });
+          var refRows  = XLSX.utils.sheet_to_json(workbook.Sheets[sheet2Name], { header: 1, defval: '' });
 
           if (dataRows.length < 2 || refRows.length < 2) {
+            hideSpinner();
             alert('Sheets must contain at least a header row and one data row.');
             return;
           }
@@ -183,10 +202,9 @@ if (typeof document !== 'undefined') {
           renderResults(processedData);
         } catch (err) {
           alert('Processing error: ' + err.message);
-        } finally {
-          spinner.hidden = true;
         }
-      }, 50);
+        hideSpinner();
+      }, 100);
     });
 
     /* ── Render results ─────────────────────────────────────────── */
@@ -219,16 +237,16 @@ if (typeof document !== 'undefined') {
 
       // Unmatched list
       if (result.unmatchedKeys.length > 0) {
-        unmatchedSection.hidden = false;
+        unmatchedSection.style.display = '';
         unmatchedBadge.textContent = result.unmatchedKeys.length;
         unmatchedBody.innerHTML = result.unmatchedKeys
           .map(k => '<tr><td>' + escapeHtml(k.material) + '</td><td>' + escapeHtml(k.plant) + '</td></tr>')
           .join('');
       } else {
-        unmatchedSection.hidden = true;
+        unmatchedSection.style.display = 'none';
       }
 
-      resultPanel.hidden = false;
+      resultPanel.style.display = '';
     }
 
     /* ── Download ───────────────────────────────────────────────── */
