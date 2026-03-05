@@ -123,22 +123,32 @@ if (typeof document !== 'undefined') {
       spinner.hidden = false;
 
       const reader = new FileReader();
-      reader.onload = (evt) => {
-        const data = new Uint8Array(evt.target.result);
-        workbook = XLSX.read(data, { type: 'array' });
-
-        // Populate sheet selectors
-        sheet1Select.innerHTML = '';
-        sheet2Select.innerHTML = '';
-        workbook.SheetNames.forEach((name, idx) => {
-          const opt1 = new Option(name, name, idx === 0, idx === 0);
-          const opt2 = new Option(name, name, idx === 1, idx === 1);
-          sheet1Select.appendChild(opt1);
-          sheet2Select.appendChild(opt2);
-        });
-
-        configPanel.hidden = false;
+      reader.onerror = () => {
         spinner.hidden = true;
+        alert('Error reading file. Please try again.');
+      };
+      reader.onload = (evt) => {
+        try {
+          const data = new Uint8Array(evt.target.result);
+          workbook = XLSX.read(data, { type: 'array' });
+
+          // Populate sheet selectors
+          sheet1Select.innerHTML = '';
+          sheet2Select.innerHTML = '';
+          workbook.SheetNames.forEach((name, idx) => {
+            const opt1 = new Option(name, name, idx === 0, idx === 0);
+            const opt2 = new Option(name, name, idx === 1, idx === 1);
+            sheet1Select.appendChild(opt1);
+            sheet2Select.appendChild(opt2);
+          });
+
+          configPanel.hidden = false;
+        } catch (err) {
+          workbook = null;
+          alert('Failed to parse Excel file: ' + err.message);
+        } finally {
+          spinner.hidden = true;
+        }
       };
       reader.readAsArrayBuffer(file);
     });
@@ -150,29 +160,32 @@ if (typeof document !== 'undefined') {
 
       // Use setTimeout to let the spinner render before heavy processing
       setTimeout(() => {
-        const sheet1Name = sheet1Select.value;
-        const sheet2Name = sheet2Select.value;
+        try {
+          const sheet1Name = sheet1Select.value;
+          const sheet2Name = sheet2Select.value;
 
-        if (sheet1Name === sheet2Name) {
+          if (sheet1Name === sheet2Name) {
+            alert('Data sheet and reference sheet must be different.');
+            return;
+          }
+
+          const dataRows = XLSX.utils.sheet_to_json(workbook.Sheets[sheet1Name], { header: 1, defval: '' });
+          const refRows  = XLSX.utils.sheet_to_json(workbook.Sheets[sheet2Name], { header: 1, defval: '' });
+
+          if (dataRows.length < 2 || refRows.length < 2) {
+            alert('Sheets must contain at least a header row and one data row.');
+            return;
+          }
+
+          processedData = processCrossReference(dataRows, refRows);
+          processedData.sheet1Name = sheet1Name;
+
+          renderResults(processedData);
+        } catch (err) {
+          alert('Processing error: ' + err.message);
+        } finally {
           spinner.hidden = true;
-          alert('Data sheet and reference sheet must be different.');
-          return;
         }
-
-        const dataRows = XLSX.utils.sheet_to_json(workbook.Sheets[sheet1Name], { header: 1, defval: '' });
-        const refRows  = XLSX.utils.sheet_to_json(workbook.Sheets[sheet2Name], { header: 1, defval: '' });
-
-        if (dataRows.length < 2 || refRows.length < 2) {
-          spinner.hidden = true;
-          alert('Sheets must contain at least a header row and one data row.');
-          return;
-        }
-
-        processedData = processCrossReference(dataRows, refRows);
-        processedData.sheet1Name = sheet1Name;
-
-        renderResults(processedData);
-        spinner.hidden = true;
       }, 50);
     });
 
